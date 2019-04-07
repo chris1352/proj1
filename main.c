@@ -4,6 +4,10 @@
 //-------------------------------function prototypes----------------------------------------------
 void encriptionRotation(char *messageText, int rotationAmount);
 void decriptionRotation(char *encriptedText, int rotationAmount);
+void encriptionsubstitution();
+void decriptionsubstitution();
+void decriptionRotationWithoutKey();
+void decriptionSubstitutionWithoutKey();
 
 //-------------------------------main----------------------------------------------
 int main() {
@@ -11,22 +15,22 @@ int main() {
     char messageText[200]; //creates a string to store a message that will be encripted
     char encriptedText[200]; //creates a string to store an encripted message that will be decripted
     int rotationAmount; //creates an int variable to store a rotation amount
-    printf("what would you like to do\n1: Encription of rotation\n2: Decription with key of rotation\n");   //
+    printf("What would you like to do\n1: Encription of rotation\n2: Decription with key of rotation\n");   //
     printf("3: Encription of substitution\n4: Decription with key of substitution\n");                      //prints a menu for the user
     printf("5: Decription without key of rotation\n6: Decription without key of substitution\n");           //
     scanf("%d", &choice); //reads an input from the user and stores it in choice
     switch(choice) {
         case 1:
-            printf("enter your message text:\n");
+            printf("Enter your message text:\n");
             scanf("%s", messageText); //reads an input from the user and stores it in messageText
-            printf("enter your rotation amount:\n");
+            printf("Enter your rotation amount:\n");
             scanf("%d", &rotationAmount); //reads an input from the user and stores it in rotationAmount
             encriptionRotation(messageText, rotationAmount); //runs encription of rotation function
             break;
         case 2:
-            printf("enter your encripted text:\n");
+            printf("Enter your encripted text:\n");
             scanf("%s", encriptedText); //reads an input from the user and stores it in encriptedText
-            printf("enter your rotation amount:\n");
+            printf("Enter your rotation amount:\n");
             scanf("%d", &rotationAmount); //reads an input from the user and stores it in rotationAmount
             decriptionRotation(encriptedText, rotationAmount);//runs decription of rotation function
             break;
@@ -39,7 +43,7 @@ int main() {
         case 6:
             //run decription without key of substitution function
         default:
-            printf("please enter a choice between 1 and 6\n");
+            printf("Choice invalid, please enter a choice between 1 and 6\n");
             //re ask for a choice from the user
     }
     return 0;
@@ -69,4 +73,20 @@ void decriptionRotation(char *encriptedText, int rotationAmount) {
 		printf("%c", decripted); //prints that letter
 	}
 	printf("\n"); //prints a new line
+}
+
+void encriptionsubstitution() {
+    
+}
+
+void decriptionsubstitution() {
+    
+}
+
+void decriptionRotationWithoutKey() {
+    
+}
+
+void decriptionSubstitutionWithoutKey() {
+    
 }
