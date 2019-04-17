@@ -5,7 +5,7 @@
 void encriptionRotation(char *messageText, int rotationAmount);
 void decriptionRotation(char *encriptedText, int rotationAmount);
 void encriptionSubstitution(char *messageText, char *substitutionKey);
-void decriptionSubstitution();
+void decriptionSubstitution(char *encriptedText, char *substitutionKey);
 void decriptionRotationWithoutKey();
 void decriptionSubstitutionWithoutKey();
 
@@ -15,7 +15,9 @@ int main() {
     
     char messageText[200]; //creates a string to store a message that will be encripted
     char encriptedText[200]; //creates a string to store an encripted message that will be decripted
-    char substitutionKey[200];
+    char substitutionKey[200]; //creates a string to store the substitution key
+    char alphabet[200] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //creates a string that stores the alphabet in upper case, used int the substitution cypher
+    char alphabet[200] = "abcdefghijklmnopqrstuvwxyz"; //creates a string that stores the alphabet in lower case, used int the substitution cypher
     int rotationAmount; //creates an int variable to store a rotation amount
     
     printf("What would you like to do\n1: Encription of rotation\n2: Decription with key of rotation\n");   //
@@ -40,20 +42,24 @@ int main() {
             break;
         case 3:
             printf("Enter your message text: \n");
-            scanf("%s", messageText);
+            scanf("%s", messageText); //reads an input from the user and stores it in messageText
             printf("enter your key: \n");
-            scanf("%s", substitutionKey);
+            scanf("%s", substitutionKey); //reads an input from the user and stores it in substitutionKey
             encriptionSubstitution(messageText, substitutionKey); //run encription of substitution function
             break;
         case 4:
-            //run decription of substitution function
+            printf("Enter your encripted text: \n");
+            scanf("%s", encriptedText); //reads an input from the user and stores it in messageText
+            printf("enter your key: \n");
+            scanf("%s", substitutionKey); //reads an input from the user and stores it in substitutionKey
+            decriptionSubstitution(encriptedText, substitutionKey); //run decription of substitution function
+            break;
         case 5:
             //run decription without key of rotation function
         case 6:
             //run decription without key of substitution function
         default:
-            printf("Choice invalid, please enter a choice between 1 and 6\n");
-            //re ask for a choice from the user
+            printf("Choice invalid, please enter a choice between 1 and 6\n"); //re ask for a choice from the user
     }
     return 0;
 }
@@ -67,7 +73,7 @@ void encriptionRotation(char *messageText, int rotationAmount) {
     
     printf("your encripted text is: ");
     for (n = 0 ; messageText[n] != '\0' && strlen(messageText) > n ; n++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable   
-		encriptedValue = ((int)messageText[n] - 65 + rotationAmount) % 26 + 65; //changes a letter fromm the messageText int to the ASCII code for the letter that is the rotatoion amount ahead of that letter
+		encriptedValue = ((int)messageText[n] - 65 + rotationAmount) % 26 + 65; //changes a letter from the messageText int to the ASCII code for the letter that is the rotatoion amount ahead of that letter
 		encripted = (char)(encriptedValue); //changes the ASCII code back into a letter
 		printf("%c", encripted); //prints that letter
 	}
@@ -79,8 +85,8 @@ void decriptionRotation(char *encriptedText, int rotationAmount) {
     int decriptedValue; //creates an int variable used for decription
     int n; //creates an int variable used for counting
     printf("your decripted text is: ");
-    for (n = 0 ; encriptedText[n] != '\0' && strlen(encriptedText) > n ; n++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable   
-		decriptedValue = ((int)encriptedText[n] - 65 - rotationAmount) % 26 + 65; //changes a letter fromm the encriptedText into the ASCII code for the letter that is the rotatoion amount behind of that letter
+    for (n = 0 ; encriptedText[n] != '\0' && strlen(encriptedText) > n ; n++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable
+		decriptedValue = ((int)encriptedText[n] - 65 - rotationAmount) % 26 + 65; //changes a letter from the encriptedText into the ASCII code for the letter that is the rotatoion amount behind of that letter
 		decripted = (char)(decriptedValue); //changes the ASCII code back into a letter
 		printf("%c", decripted); //prints that letter
 	}
@@ -88,20 +94,27 @@ void decriptionRotation(char *encriptedText, int rotationAmount) {
 }
 
 void encriptionSubstitution(char *messageText, char *substitutionKey) {
-    char alphabet[200] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    int n, c;
-    for (n = 0, c = 0 ; messageText[n] != '\0' && strlen(messageText) > n ; c++) {
-        if (messageText[n] == alphabet[c]) {
-            messageText[n] = substitutionKey[c];
-            n++;
-            c = 0;
+    int n, c; //creates int variables to be used for index's
+    for (n = 0, c = 0 ; messageText[n] != '\0' && strlen(messageText) > n ; c++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable
+        if (messageText[n] == Alphabet[c] || messageText[n] == alphabet[c]) { //if statement that finds the index for the letter, in the alphabet, that is to be changed in the message text
+            messageText[n] = substitutionKey[c]; //changes the letter in the message text to the one that has the same index in the substitution key
+            n++; //increments n, ie moves to the next letter
+            c = -1; //resets c, didn't work with c being set to 0
         }
     }
-    printf("your encripted text is %s\n", messageText);
+    printf("your encripted text is %s\n", messageText); //prints the encripted text
 }
 
-void decriptionsubstitution() {
-    
+void decriptionSubstitution(char *encriptedText, char *substitutionKey) {
+    int n, c; //creates int variables to be used for index's
+    for (n = 0, c = 0 ; encriptedText[n] != '\0' && strlen(encriptedText) > n ; c++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable
+        if (encriptedText[n] == substitutionKey[c]) { //if statement that finds the index for the letter, in the substitution key, that is to be changed in the encripted text
+            encriptedText[n] = alphabet[c]; //changes the letter in the message text to the one that has the same index in the alphabet
+            n++; //increments n, ie moves to the next letter
+            c = -1; //resets c, didn't work with c being set to 0
+        }
+    }
+    printf("your decripted text is %s\n", encriptedText); //prints the decripted text
 }
 
 void decriptionRotationWithoutKey() {
