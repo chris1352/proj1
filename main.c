@@ -108,7 +108,7 @@ void encriptionSubstitution(char *messageText, char *substitutionKey) {
 void decriptionSubstitution(char *encriptedText, char *substitutionKey) {
     int n, c; //creates int variables to be used for index's
     for (n = 0, c = 0 ; encriptedText[n] != '\0' && strlen(encriptedText) > n ; c++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable
-        if (encriptedText[n] == substitutionKey[c]) { //if statement that finds the index for the letter, in the substitution key, that is to be changed in the encripted text
+        if (encriptedText[n] == substitutionKey[c] || encriptedText[n] == substitutionKey[c]) { //if statement that finds the index for the letter, in the substitution key, that is to be changed in the encripted text
             encriptedText[n] = alphabet[c]; //changes the letter in the message text to the one that has the same index in the alphabet
             n++; //increments n, ie moves to the next letter
             c = -1; //resets c, didn't work with c being set to 0
