@@ -20,7 +20,6 @@ int main() {
     char encriptedText[200]; //creates a string to store an encripted message that will be decripted
     char substitutionKey[200]; //creates a string to store the substitution key
     int rotationAmount; //creates an int variable to store a rotation amount
-    
     printf("What would you like to do\n1: Encription of rotation\n2: Decription with key of rotation\n");   //
     printf("3: Encription of substitution\n4: Decription with key of substitution\n");                      //prints a menu for the user
     printf("5: Decription without key of rotation\n6: Decription without key of substitution\n");           //
@@ -109,17 +108,19 @@ void decriptionRotation(char *encriptedText, int rotationAmount) {
 }
 
 void encriptionSubstitution(char *messageText, char *substitutionKey) {
-    char alphabet[200] = "abcdefghijklmnopqrstuvwxyz"; //creates a string that stores the alphabet in lower case
+    char alphabet[200] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //creates a string that stores the alphabet in lower case
     int n, c; //creates int variables to be used for index's
     
     for (n = 0, c = 0 ; messageText[n] != '\0' && strlen(messageText) > n ; c++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable
         if ((int)messageText[n] == 32) {
 		    printf(" ");
+		    n++;
+		    c = -1;
 		}
 		else if (messageText[n] == alphabet[c]) { //if statement that finds the index for the letter, in the alphabet, that is to be changed in the message text
             messageText[n] = substitutionKey[c]; //changes the letter in the message text to the one that has the same index in the substitution key
             n++; //increments n, ie moves to the next letter
-            c = -1; //resets c, didn't work with c being set to 0
+            c = -1; //resets c, didn't work with c being set to 0 because it will be incremented at the end of the loop
         }
     }
     printf("your encripted text is %s\n", messageText); //prints the encripted text
@@ -132,11 +133,13 @@ void decriptionSubstitution(char *encriptedText, char *substitutionKey) {
     for (n = 0, c = 0 ; encriptedText[n] != '\0' && strlen(encriptedText) > n ; c++) { //loop that continues until it reaches a \0 or the string length is greater than the count variable
         if ((int)encriptedText[n] == 32) {
 		    printf(" ");
+		    n++;
+		    c = -1;
 		}
 		else if (encriptedText[n] == substitutionKey[c]) { //if statement that finds the index for the letter, in the substitution key, that is to be changed in the encripted text
             encriptedText[n] = alphabet[c]; //changes the letter in the message text to the one that has the same index in the alphabet
             n++; //increments n, ie moves to the next letter
-            c = -1; //resets c, didn't work with c being set to 0
+            c = -1; //resets c, didn't work with c being set to 0 because it will be incremented at the end of the loop
         }
     }
     printf("your decripted text is %s\n", encriptedText); //prints the decripted text
